@@ -1,0 +1,159 @@
+#include<stdio.h>
+#include<stdlib.h>
+void display();
+void append();
+int length();
+void addatmiddle();
+void deletion();
+struct node
+{
+    int data;
+    struct node* link;
+
+};
+struct node* root=NULL;
+
+int main()
+{
+    int choice,k;
+    while(1)
+    {
+
+        printf("\t1.Append\n");
+        printf("\t2.Add at middle\n");
+        printf("\t3.Delete\n");
+        printf("\t4.Length\n");
+        printf("\t5.Display\n");
+        printf("\nEnter your choice:");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+        case 1:
+            append();
+            break;
+        case 2:
+            addatmiddle();
+            break;
+        case 3:
+            deletion();
+            break;
+        case 4:
+            k=length();
+            printf("Length:%d\n\n",k);
+            break;
+        case 5:
+            display();
+            break;
+
+        }
+
+
+    }
+}
+void append()
+{
+    struct node* temp;
+    temp=(struct node*)malloc(sizeof(struct node));
+    printf("Enter Node data:");
+    scanf("%d",&temp->data);
+    temp->link=NULL;
+    if(root==NULL)
+        root=temp;
+    else
+    {
+        struct node* p;
+        p=root;
+        while(p->link != NULL)
+        {
+            p=p->link;
+        }
+        p->link=temp;
+    }
+
+}
+int length()
+{
+    struct node* temp;
+    temp=root;
+    int c=0;
+    while(temp!=NULL)
+    {
+        temp=temp->link;
+        c++;
+    }
+
+    return c;
+}
+void addatmiddle()
+{
+    struct node* temp,*p;
+    int i=1,loc;
+    printf("Enter inserting location:");
+    scanf("%d",&loc);
+    if(length()<loc)
+        printf("Invalid\n");
+    else
+    {
+        p=root;
+        while(i<loc)
+        {
+            p=p->link;
+            i++;
+        }
+        temp=(struct node*)malloc(sizeof(struct node));
+        printf("Enter Node data:");
+        scanf("%d",&temp->data);
+        temp->link=NULL;
+        temp->link=p->link;
+        p->link=temp;
+
+    }
+}
+
+void display()
+{
+    struct node* temp;
+    temp=root;
+    if(root==NULL)
+        printf("No nodes\n");
+    else
+    {
+        while(temp!=NULL)
+        {
+            printf("%d->",temp->data);
+            temp=temp->link;
+        }
+        printf("\n");
+    }
+}
+void deletion()
+{
+    struct node* temp;
+    int loc;
+    printf("Enter location:");
+    scanf("%d",&loc);
+    if(loc>length())
+        printf("INVALID\n");
+    else if(loc==1)
+    {
+        temp=root;
+        root=temp->link;
+        temp->link=NULL;
+        free(temp);
+
+    }
+    else
+    {
+        int i=1;
+        struct node* temp,*p=root,*q;
+        while(i<loc-1)
+        {
+            p=p->link;
+            i++;
+        }
+        q=p->link;
+        p->link=q->link;
+        q->link=NULL;
+        free(q);
+    }
+}
