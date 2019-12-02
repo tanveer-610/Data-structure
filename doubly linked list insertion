@@ -1,0 +1,126 @@
+#include<stdio.h>
+struct node
+{
+    int data;
+    struct node* next;
+    struct node * pre;
+}*head;
+
+main()
+{
+    int n,choice,k;
+    while(1)
+    {
+        printf("\t1.Create\n\t2.Add at first\n\t3.Display\n\t4.Length\n\t5.Add at certain\n\t6.Exit\n");
+        printf("Enter your choice:");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+        case 1:
+            printf("Enter the number of nodes : ");
+            scanf("%d",&n);
+            create(n);
+            break;
+        case 2:
+            addfirst();
+            break;
+        case 3:
+
+            display();
+            break;
+        case 4:
+            k= length();
+            printf("Length=%d\n",k);
+        case 5:
+        addatcertain();
+        break;
+        case 6:
+            exit(0);
+        }
+    }
+}
+void create(int n)
+{
+    int data;
+    struct node *last,*newnode;
+    if(n>=1)
+    {
+        head = (struct node *)malloc(sizeof(struct node));
+        printf("Enter the data : ");
+        scanf("%d",&head->data);
+        head -> pre= NULL;
+        head-> next = NULL;
+        last = head;
+        for(int i=2; i<=n; i++)
+        {
+            newnode=(struct node*)malloc(sizeof(struct node));
+            printf("Enter the data :");
+            scanf("%d",&newnode->data);
+            newnode->pre=last;
+            newnode->next=NULL;
+            last->next=newnode;
+            last=newnode;
+        }
+    }
+}
+void display()
+{
+    struct node * newnode;
+    newnode = head;
+    printf("\n\nThe linked list :");
+    while(newnode!=NULL)
+    {
+        printf("%d ",newnode->data);
+        newnode=newnode->next;
+    }
+    printf("\n");
+}
+int length()
+{
+    struct node* temp;
+    temp=head;
+    int c=0;
+    while(temp!=NULL)
+    {
+        temp=temp->next;
+        c++;
+    }
+
+    return c;
+}
+void addfirst()
+{
+    struct node * newnode;
+    newnode=(struct node*)malloc(sizeof(struct node));
+    printf("Enter the data :");
+    scanf("%d",&newnode->data);
+    head->pre=newnode;
+    newnode->pre=NULL;
+    newnode->next=head;
+    head=newnode;
+}
+void addatcertain()
+{
+
+    int i=1,len=length(),loc;
+    struct node * temp = head;
+    struct node * newnode ;
+    newnode= (struct node*)malloc(sizeof(struct node));
+    newnode->next=NULL;
+    newnode->pre=NULL;
+    printf("Enter the location : ");
+    scanf("%d",&loc);
+    printf("Enter the data : ");
+    int data;
+    scanf("%d",&data);
+    newnode->data=data;
+    while(i<loc-1)
+    {
+        temp = temp->next;
+        i++;
+    }
+
+    newnode->next=temp->next;
+    temp->next=newnode;
+    newnode->pre=temp;
+}
