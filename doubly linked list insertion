@@ -1,126 +1,176 @@
 #include<stdio.h>
+#include<stdlib.h>
+void creation(int n);
+void fordisplay();
 struct node
 {
     int data;
-    struct node* next;
-    struct node * pre;
-}*head;
-
-main()
+    struct node *prenode;
+    struct node *nextnode;
+}*head,*last;
+int main()
 {
-    int n,choice,k;
+    int ch,n;
+    printf("1.Creation.\n2.Forward Display.\n3.Reverse Display.\n4.ADD at first.\n5.ADD at Last.\n6.Add at midd.\n7.exit.\n");
     while(1)
     {
-        printf("\t1.Create\n\t2.Add at first\n\t3.Display\n\t4.Length\n\t5.Add at certain\n\t6.Exit\n");
-        printf("Enter your choice:");
-        scanf("%d",&choice);
-        switch(choice)
+        printf("\nEnter your choice = ");
+        scanf("%d",&ch);
+        switch(ch)
         {
         case 1:
-            printf("Enter the number of nodes : ");
+            printf("how many Number you wanna add ? ");
             scanf("%d",&n);
-            create(n);
+            creation(n);
             break;
-        case 2:
-            addfirst();
-            break;
-        case 3:
 
-            display();
+        case 2 :
+            printf("Data of that list :\n");
+            fordisplay();
+            break;
+        case 3 :
+            printf("Data of that list :\n");
+            revdisplay();
             break;
         case 4:
-            k= length();
-            printf("Length=%d\n",k);
+            printf("Enter data = ");
+            scanf("%d",&n);
+            addAtfirst(n);
+            break;
         case 5:
-        addatcertain();
-        break;
+            printf("Enter data = ");
+            scanf("%d",&n);
+            lastadd(n);
+            break;
         case 6:
+            middadd();
+            break;
+        case 7:
             exit(0);
+        default:
+            printf("You enterd wrong number.\n");
         }
     }
 }
-void create(int n)
+void creation(int n)
 {
-    int data;
-    struct node *last,*newnode;
+    struct node *temp;
     if(n>=1)
     {
-        head = (struct node *)malloc(sizeof(struct node));
-        printf("Enter the data : ");
+         printf("Enter data : ");
+        head=(struct node *)malloc(sizeof(struct node));
         scanf("%d",&head->data);
-        head -> pre= NULL;
-        head-> next = NULL;
-        last = head;
+        head->prenode=NULL;
+        head->nextnode=NULL;
+        last=head;
         for(int i=2; i<=n; i++)
         {
-            newnode=(struct node*)malloc(sizeof(struct node));
-            printf("Enter the data :");
-            scanf("%d",&newnode->data);
-            newnode->pre=last;
-            newnode->next=NULL;
-            last->next=newnode;
-            last=newnode;
+            struct node *p;
+            p=(struct node *)malloc(sizeof(struct node));
+            scanf("%d",&p->data);
+            p->prenode=last;
+            p->nextnode=NULL;
+            last->nextnode=p;
+            last=p;
+        }
+    }
+
+}
+void fordisplay()
+{
+    struct node *temp=head;
+    if(temp==NULL)
+        printf("there is no data");
+    else
+    {
+        while(temp!=NULL)
+        {
+            printf("%d->",temp->data);
+            temp=temp->nextnode;
+
         }
     }
 }
-void display()
+void revdisplay()
 {
-    struct node * newnode;
-    newnode = head;
-    printf("\n\nThe linked list :");
-    while(newnode!=NULL)
+    struct node *temp=last;
+    if(temp==NULL)
+        printf("there is no data");
+    else
     {
-        printf("%d ",newnode->data);
-        newnode=newnode->next;
-    }
-    printf("\n");
-}
-int length()
-{
-    struct node* temp;
-    temp=head;
-    int c=0;
-    while(temp!=NULL)
-    {
-        temp=temp->next;
-        c++;
-    }
+        while(temp!=NULL)
+        {
+            printf("%d->",temp->data);
+            temp=temp->prenode;
 
+        }
+    }
+}
+void addAtfirst(int n)
+{
+    struct node *temp;
+      temp=(struct node *)malloc(sizeof( struct node));
+        temp->data=n;
+        temp->prenode=NULL;
+        temp->nextnode=head;
+        head->prenode=temp;
+        head=temp;
+}
+void lastadd(int n)
+{
+        struct node *temp;
+        temp=(struct node *)malloc(sizeof( struct node));
+        temp->data=n;
+        temp->nextnode=NULL;
+        temp->prenode=last;
+        last->nextnode=temp;
+        last=temp;
+}
+int len()
+{
+    struct node *temp=head;
+    int c=0;
+    if(temp==NULL)
+        c=0;
+    else
+    {
+        while(temp->nextnode!=NULL)
+        {
+            c++;
+            temp=temp->nextnode;
+        }
+    }
     return c;
 }
-void addfirst()
+void middadd()
 {
-    struct node * newnode;
-    newnode=(struct node*)malloc(sizeof(struct node));
-    printf("Enter the data :");
-    scanf("%d",&newnode->data);
-    head->pre=newnode;
-    newnode->pre=NULL;
-    newnode->next=head;
-    head=newnode;
-}
-void addatcertain()
-{
-
-    int i=1,len=length(),loc;
-    struct node * temp = head;
-    struct node * newnode ;
-    newnode= (struct node*)malloc(sizeof(struct node));
-    newnode->next=NULL;
-    newnode->pre=NULL;
-    printf("Enter the location : ");
-    scanf("%d",&loc);
-    printf("Enter the data : ");
-    int data;
-    scanf("%d",&data);
-    newnode->data=data;
-    while(i<loc-1)
+    struct node *temp=head;
+    if(temp==NULL)
+        printf("Add at middle is not possible.\n");
+    else
     {
-        temp = temp->next;
-        i++;
-    }
+        int loc,i=1;
 
-    newnode->next=temp->next;
-    temp->next=newnode;
-    newnode->pre=temp;
+        printf("Enter location.\n");
+        scanf("%d",&loc);
+
+        if(loc>len())
+            printf("\nAdd is not possible.\n");
+        else
+        {
+            struct node *p=(struct node *)malloc(sizeof(struct node));
+            printf("Enter Data = ");
+            scanf("%d",&p->data);
+            p->prenode=NULL;
+            p->nextnode=NULL;
+            while(i<loc-1)
+            {
+                temp=temp->nextnode;
+                i++;
+            }
+            p->nextnode=temp->nextnode;
+            temp->nextnode=p;
+            p->prenode=temp;
+        }
+    }
 }
