@@ -1,0 +1,70 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node* link;
+}*head=NULL;
+int main()
+{
+    int choice,n;
+    printf("1.CREATION,\n2.DISPLAY.\n3.EXIT.\n");
+    while(1)
+    {
+        printf("\nEnter your choice : ");
+        scanf("%d",&choice);
+    switch (choice)
+    {
+    case 1:
+    printf("\nHow many nodes you wanna insert : ");
+    scanf("%d",&n);
+        creation(n);
+        break;
+    case 2:
+        display ();
+        break;
+    case 3:
+        exit(0);
+    default:
+        printf("Wrong Number.\n");
+
+    }
+}
+}
+void creation(int n)
+{
+   struct node*temp,*p;
+   if(n>=1)
+   {
+       head=(struct node*)malloc(sizeof(struct node));
+       printf("\nEnter data : ");
+       scanf("%d",&head->data);
+       head->link=NULL;
+       temp=head;
+       for(int i=2;i<=n;i++)
+       {
+           p=(struct node*)malloc(sizeof(struct node));
+           printf("\nEnter %d data : ",i);
+           scanf("%d",&p->data);
+           p->link=NULL;
+           temp->link=p;
+           temp=p;
+       }
+       temp->link=head;
+   }
+}
+void display ()
+{
+    struct node*temp=head;
+    if(temp==NULL)
+        printf("\nThere is no data.\n");
+    else
+    {
+        do
+        {
+            printf(" %d -> ",temp->data);
+            temp=temp->link;
+        }while(temp!=head);
+    }
+}
+
