@@ -11,7 +11,7 @@ struct node
 int main()
 {
     int ch,n;
-    printf("1.Creation.\n2.Forward Display.\n3.Reverse Display.\n4.ADD at first.\n5.ADD at Last.\n6.Add at midd.\n7.exit.\n");
+    printf("1.Creation.\n2.Forward Display.\n3.Reverse Display.\n4.ADD at first.\n5.ADD at Last.\n6.Add at midd.\n7.Deletion.\n8.Exit\n");
     while(1)
     {
         printf("\nEnter your choice = ");
@@ -46,6 +46,9 @@ int main()
             middadd();
             break;
         case 7:
+            deletion();
+            break;
+        case 8:
             exit(0);
         default:
             printf("You enterd wrong number.\n");
@@ -172,5 +175,33 @@ void middadd()
             temp->nextnode=p;
             p->prenode=temp;
         }
+    }
+}
+void deletion()
+{
+    int i=1,loc;
+    printf("Enter location:");
+    scanf("%d",&loc);
+    if(loc>len())
+        printf("DELETION ISN'T POSSIBLE\n");
+    else if(loc==1)
+    {
+        struct node* temp=head;
+        head=temp->nextnode;
+        temp->prenode=NULL;
+        temp->nextnode=NULL;
+    }
+    else
+    {
+        struct node* p=head,*q,*temp;
+        while(i<loc-1)
+        {
+            p=p->nextnode;
+            i++;
+        }
+        q=p->nextnode;
+        p->nextnode=q->nextnode;
+        q->nextnode=NULL;
+        q->prenode=NULL;
     }
 }
