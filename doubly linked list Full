@@ -1,3 +1,5 @@
+
+
 #include<stdio.h>
 #include<stdlib.h>
 void creation(int n);
@@ -201,7 +203,8 @@ void deletion()
         }
         q=p->nextnode;
         p->nextnode=q->nextnode;
-        q->nextnode=NULL;
+        q->nextnode->prenode=p;
         q->prenode=NULL;
+        q->nextnode=NULL;
     }
 }
