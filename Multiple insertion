@@ -1,0 +1,31 @@
+#include<stdio.h>
+
+void insertion(int a[],int n,int pos,int value)
+{
+    int i;
+    for(i=n-1; i>=pos-1; i--)
+    {
+        a[i+1]=a[i];
+    }
+     a[pos-1]=value;
+}
+
+int main()
+{
+
+    int a[100]= {10,5,2,25,32,52,1};
+    int pos,value,i,k,n=7;
+    printf("How many value wanna insert:");
+    scanf("%d",&k);
+    for(i=1; i<=k; i++)
+    {
+        n++;
+        printf("\nEnter position & value:");
+        scanf("%d%d",&pos,&value);
+        insertion(a,n,pos,value);
+    }
+     for(i=0; i<n; i++)
+    {
+        printf("\n%d\n",a[i]);
+    }
+}
