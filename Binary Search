@@ -1,0 +1,28 @@
+#include<stdio.h>
+int binary_search(int a[],int n,int m)
+{
+    int last=n-1,first=0,mid;
+    while(first<=last)
+    {
+        mid=(last+first)/2.0;
+        if(a[mid]==m)
+        {
+            return mid;
+        }
+        else if(a[mid]<m)
+            first=mid+1;
+        else
+            last=mid-1;
+    }
+    return -1;
+}
+int main()
+{
+
+    int a[]={10,11,12,15,25},m=25;
+   int result= binary_search(a,sizeof(a),m);
+    if(result==-1)
+        printf("not found");
+    else
+        printf("found in %d index",result);
+}
