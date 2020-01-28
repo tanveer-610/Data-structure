@@ -1,0 +1,26 @@
+#include<stdio.h>
+int main()
+{
+    int num[]={1,2,3,6,5,7};
+    int value,pos=-1,i;
+
+    scanf("%d",&value);
+
+    for(i=0;i<6;i++)
+    {
+        if(value==num[i])
+        {
+            pos=i+1;
+            break;
+        }
+    }
+    if(pos==-1)
+    {
+        printf("number not found");
+    }
+    else
+    {
+        printf("value is in position %d",pos);
+    }
+
+}
