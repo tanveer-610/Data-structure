@@ -1,0 +1,79 @@
+#include<stdio.h>
+#include<stdlib.h>
+void createCharLList(char c);
+void searching(char search);
+void traverse();
+struct node
+{
+    char data;
+    struct node* linkage;
+};
+struct node* header=NULL;
+
+int main()
+{
+    char c,search;
+    printf("Enter 6 character data of nodes of the Linked List:\n");
+    for(int i=0; i<6; i++)
+    {
+        scanf("%c",&c);
+        createCharLList(c);
+        getchar();
+    }
+    traverse();
+    printf("\nEnter searching character:");
+    scanf("%c",&search);
+    searching(search);
+}
+
+void createCharLList(char c)
+{
+    struct node* temp;
+    temp=(struct node*)malloc(sizeof(struct node));
+    temp->data=c;
+    temp->linkage=NULL;
+    if(header==NULL)
+        header=temp;
+    else
+    {
+        struct node* second;
+        second=header;
+        while(second->linkage != NULL)
+        {
+            second=second->linkage;
+        }
+        second->linkage=temp;
+    }
+}
+void traverse()
+{
+    struct node* temp;
+    temp=header;
+    if(temp==NULL)
+        printf("\nLinked List is empty.\n");
+    else
+    {
+        printf("\nData of the linked list :\n");
+        while(temp != NULL)
+        {
+            printf("%c-->",temp->data);
+            temp=temp->linkage;
+        }
+        printf("\n");
+    }
+}
+void searching(char search)
+{
+    struct node* temp;
+    temp=header;
+    while(temp != NULL)
+    {
+        if(temp->data == search)
+        {
+            printf("\n%c is found in the Linked List.\n",search);
+            exit(0);
+        }
+        temp=temp->linkage;
+    }
+    printf("\n%c isn't found in the Linked List.\n",search);
+}
