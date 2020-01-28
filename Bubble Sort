@@ -1,0 +1,21 @@
+#include<stdio.h>
+int main()
+{
+    int a[]={3,8,9,2,1,0,10};
+    int n=sizeof(a)/sizeof(int);
+    for(int c=0;c<n-1;c++)
+    {
+        for(int i=0;i<n-c-1;i++)
+        {
+            if(a[i]>a[i+1])
+            {
+                int swap=a[i];
+                a[i]=a[i+1];
+                a[i+1]=swap;
+            }
+        }
+    }
+    printf("New Array : \n");
+    for(int i=0;i<n;i++)
+        printf("%d\t",a[i]);
+}
