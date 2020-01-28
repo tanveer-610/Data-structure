@@ -1,0 +1,14 @@
+#include<stdio.h>
+main()
+{
+    int a[5]={1,2,25,32,25};
+    int n=5,pos,ma;
+    printf("How many con value:");
+    scanf("%d",&ma);
+    printf("From which pos:");
+    scanf("%d",&pos);
+    for(int i=pos-1;i<n-1;i++)
+        a[i]=a[i+ma];
+    for(int i=0;i<n-ma;i++)
+        printf("%d\n",a[i]);
+}
