@@ -1,0 +1,105 @@
+
+#include<stdio.h>
+#include<stdlib.h>
+#define size 5
+int cqueue[size],front=-1,rear=-1;
+
+
+void insertion(int ele)
+{
+
+    if((front == rear + 1) || (front == 0 && rear == size-1))
+    {
+        printf("cqueue is full\n");
+    }
+    else if(front==-1 && rear==-1)
+    {
+        front=0;
+        rear=0;
+        cqueue[rear]=ele;
+    }
+    else if(rear==size-1)
+    {
+        rear=0;
+        cqueue[rear]=ele;
+    }
+    else
+    {
+        rear++;
+        cqueue[rear]=ele;
+    }
+}
+
+void deletion()
+{
+    int ele;
+    if(front==-1 && rear==-1)
+        printf("Cqueue is empty");
+    else if(front==rear)
+    {
+        ele=cqueue[front];
+        front=-1;
+        rear=-1;
+        printf("Deleted item is %d\n",ele);
+    }
+    else if(front==size-1)
+    {
+        ele=cqueue[front];
+        front=0;
+        printf("Deleted item is %d\n",ele);
+    }
+    else
+    {
+        ele=cqueue[front];
+        front++;
+        printf("Deleted item is %d\n",ele);
+    }
+}
+
+void display()
+{
+    if(front==-1 && rear==-1)
+        printf("Cqueue is empty");
+  else if(front!=0 && rear<front)
+  {
+      for(int i=front;i<size;i++)
+        printf("%d\t",cqueue[i]);
+      for(int i=0;i<=rear;i++)
+        printf("%d\t",cqueue[i]);
+  }
+  else
+  {
+      for(int i=front;i<=rear;i++)
+        printf("%d\t",cqueue[i]);
+  }
+}
+main()
+{
+    int choice,ele;
+    printf("\t1.Enqueue.\n");
+    printf("\t2.Dequeue.\n");
+    printf("\t3.Display.\n");
+    printf("\t4.Quit\n");
+    while(1)
+    {
+    printf("\nEnter your choice:");
+    scanf("%d",&choice);
+
+        switch(choice)
+        {
+        case 1:
+            printf("Enter element:");
+            scanf("%d",&ele);
+            insertion(ele);
+            break;
+        case 2:
+            deletion();
+            break;
+        case 3:
+            display();
+            break;
+        case 4:
+            exit(0);
+        }
+    }
+}
