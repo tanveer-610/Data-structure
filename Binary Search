@@ -19,10 +19,32 @@ int binary_search(int a[],int n,int m)
 int main()
 {
 
-    int a[]={10,11,12,15,25},m=25;
-   int result= binary_search(a,sizeof(a),m);
+    int a[100],m,n;
+    printf("Enter array nsize:");
+    scanf("%d",&n);
+    for(int i=0; i<n; i++)
+        scanf("%d",&a[i]);
+    for(int i=0; i<n-1; i++)
+    {
+        for(int j=0; j<n-i-1; j++)
+        {
+            if(a[j]>a[j+1])
+            {
+                int temp=a[j];
+                a[j]=a[j+1];
+                a[j+1]=temp;
+            }
+        }
+
+    }
+    for(int i=0; i<n; i++)
+        printf("%d ",a[i]);
+        printf("\n");
+        printf("Enter searching value:");
+        scanf("%d",&m);
+    int result= binary_search(a,n,m);
     if(result==-1)
         printf("not found");
     else
-        printf("found in %d index",result);
+        printf("\n\t\tfound in %d index, %d position\n\n",result,result+1);
 }
