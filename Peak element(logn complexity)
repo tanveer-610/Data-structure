@@ -1,0 +1,23 @@
+#include<stdio.h>
+int peakSearch(int arr[],int low ,int high,int n)
+{
+  int mid=(low+high)/2;
+
+  if(mid==0 || arr[mid-1] <= arr[mid] && mid==n-1 || arr[mid+1]<=arr[mid])
+  return mid;
+  if(mid-1>=0 && arr[mid-1]>arr[mid])
+  return peakSearch(arr,low,mid-1,n);
+  return peakSearch(arr,mid+1,high,n);
+}
+main()
+{
+    int arr[100],n;
+    printf("Enter array size:");
+    scanf("%d",&n);
+    printf("Enter array elements:");
+    for(int i=0; i<n; i++)
+        scanf("%d",&arr[i]);
+
+        int res=peakSearch(arr,0,n-1,n);
+        printf("\n\nPeak elements:\t%d\n",arr[res]);
+}
