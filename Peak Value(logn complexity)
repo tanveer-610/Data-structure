@@ -1,0 +1,21 @@
+#include<stdio.h>
+int peak(int a[],int low,int high,int n)
+{
+    int mid=(low+high)/2;
+    if((mid==0 || a[mid-1]<=a[mid])&&(mid==n-1 || a[mid+1]<=a[mid]))
+        return mid;
+    if(mid-1>=0 && a[mid-1]>a[mid])
+        return peak(a,low,mid-1,n);
+    return peak(a,mid+1,high,n);
+}
+int main()
+{
+    int n,a[100];
+    printf("How many elements you want ? : ");
+    scanf("%d",&n);
+    printf("Enter the elements : \n");
+    for(int i=0;i<n;i++)
+        scanf("%d",&a[i]);
+    int p=peak(a,0,n-1,n);
+    printf("The peak value of that array : %d\n",a[p]);
+}
